@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="./css/styles.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     <title>FE Bootcamp Project 2</title>
@@ -12,7 +12,6 @@
   <body>
     <div class="calculator">
       <div class="screen"></div>
-
       <div class="row">
         <div class="column number" id="1"><p>1</p></div>
         <div class="column number" id="2"><p>2</p></div>
@@ -43,21 +42,21 @@
     var number1 = 0;
     var operation;
     var number2 = 0;
+
     $(document).ready(function () {
+      // Function that inserts numbers
       $(".number").on("click", function (e) {
         var a = $(this).attr("id");
         $(".screen").append(a);
       });
-
+      // Function that deletes numbers and select the operator
       $(".other").on("click", function () {
         var b = $(this).attr("id");
         number1 = parseInt($(".screen").html());
         operation = $(this).attr("id");
         $(".screen").html("");
       });
-      $(".result").on("click", function () {
-        $(".screen").html("");
-      });
+      // Function that displays result
       $(".finalResult").on("click", function () {
         var b = $(this).attr("id");
         number2 = parseInt($(".screen").html());
