@@ -1,0 +1,22 @@
+/* Create three equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 100px;
+  padding: 10px;
+  border: 1px solid red;
+  height: 50px;
+
+  /* Should be removed. Only for demonstration */
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.screen,
+.hidden {
+  border: 1px solid red;
+  height: 30px;
+}
