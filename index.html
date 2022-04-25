@@ -31,7 +31,7 @@
         <div class="column other mult" id="*"><p>*</p></div>
       </div>
       <div class="row">
-        <div class="column other clear" id="clear"><p>C</p></div>
+        <div class="column clear" id="clear"><p>C</p></div>
         <div class="column number" id="0"><p>0</p></div>
         <div class="column finalResult" id="result"><p>=</p></div>
         <div class="column other divide" id="/"><p>/</p></div>
@@ -39,41 +39,71 @@
     </div>
   </body>
   <script>
-    var number1 = 0;
-    var operation;
-    var number2 = 0;
+    var number1 = undefined;
+    var operation = undefined;
+    var number2 = undefined;
+
+    var number1String = "";
+    var number2String = "";
+
+    var result = undefined;
 
     $(document).ready(function () {
       // Function that inserts numbers
-      $(".number").on("click", function (e) {
+      $(".number").on("click", function () {
         var a = $(this).attr("id");
         $(".screen").append(a);
+        if (operation === undefined) {
+          number1String = number1String.concat(a);
+        } else {
+          number2String = number2String.concat(a);
+        }
       });
+
       // Function that deletes numbers and select the operator
       $(".other").on("click", function () {
+        if (typeof result == "number") {
+          number1String = result.toString();
+          result = undefined;
+          number2String = "";
+        }
         var b = $(this).attr("id");
-        number1 = parseInt($(".screen").html());
         operation = $(this).attr("id");
         $(".screen").html("");
       });
+
+      //   Function that clears screen and set the variables back to intial state
+      $(".clear").on("click", clearAll);
+      function clearAll() {
+        number1String = "";
+        number2String = "";
+        operation = undefined;
+        result = undefined;
+        $(".screen").html("");
+      }
+
       // Function that displays result
       $(".finalResult").on("click", function () {
-        var b = $(this).attr("id");
-        number2 = parseInt($(".screen").html());
-        $(".screen").html("");
-        if (operation == "+") {
-          result = number1 + number2;
+        if (number1String.length > 0 && number2String.length > 0) {
+          number1 = parseFloat(number1String);
+          number2 = parseFloat(number2String);
+          if (typeof result == "number") {
+            number1 = result;
+          }
+          if (operation == "+") {
+            result = number1 + number2;
+          }
+          if (operation == "-") {
+            result = number1 - number2;
+          }
+          if (operation == "*") {
+            result = number1 * number2;
+          }
+          if (operation == "/") {
+            result = number1 / number2;
+          }
+          $(".screen").html(result);
         }
-        if (operation == "-") {
-          result = number1 - number2;
-        }
-        if (operation == "*") {
-          result = number1 * number2;
-        }
-        if (operation == "/") {
-          result = number1 / number2;
-        }
-        $(".screen").append(result);
       });
       console.log("document ready");
     });
